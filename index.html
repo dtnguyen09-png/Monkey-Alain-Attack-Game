@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Super Monkey Adventure</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:#0a0500;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:'Georgia',serif;overflow:hidden;}
-#gc{position:relative;width:480px;height:640px;overflow:hidden;border:3px solid #8B6914;box-shadow:0 0 50px rgba(200,130,20,0.7);}
+html,body{width:100%;height:100%;overflow:hidden;background:#0a0500;}
+body{display:flex;align-items:center;justify-content:center;min-height:100vh;min-height:-webkit-fill-available;font-family:'Georgia',serif;background:#0a0500;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);}
+#gc{position:relative;width:480px;height:640px;overflow:hidden;border:3px solid #8B6914;box-shadow:0 0 50px rgba(200,130,20,0.7);transform-origin:center center;flex-shrink:0;}
 canvas{display:block;}
-#ui{position:absolute;top:0;left:0;width:100%;pointer-events:none;}
+#ui{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;}
 #hud{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 12px;background:linear-gradient(to bottom,rgba(0,0,0,0.78),transparent);}
 #score-block{color:#FFD700;font-size:11px;text-shadow:1px 1px 3px #000;}
 #score-val{font-size:20px;font-weight:bold;}
@@ -38,21 +39,21 @@ canvas{display:block;}
 .ctrl-btn{background:rgba(0,0,0,0.55);border:1px solid #FFD700;color:#FFD700;font-size:14px;width:28px;height:28px;border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 .ctrl-btn:active{background:rgba(180,60,0,0.9);transform:scale(0.93);}
 /* Weapon bar + SWAP */
-#wbar-row{position:absolute;bottom:52px;left:8px;right:8px;pointer-events:all;display:flex;gap:4px;align-items:stretch;}
-#weapon-bar{display:flex;gap:4px;flex:1;}
+#wbar-row{position:absolute;bottom:52px;left:8px;right:8px;pointer-events:all;display:flex;gap:4px;align-items:stretch;z-index:150;}
+#weapon-bar{display:flex;gap:4px;flex:1;pointer-events:all;}
 .ws{min-width:36px;height:46px;border:2px solid #555;border-radius:6px;background:rgba(0,0,0,0.65);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;color:#888;cursor:pointer;transition:border-color 0.1s,background 0.1s;-webkit-tap-highlight-color:transparent;touch-action:manipulation;flex:1;}
 .ws.active{border-color:#FFD700;background:rgba(255,215,0,0.18);color:#FFD700;box-shadow:0 0 8px rgba(255,215,0,0.4);}
 .ws.locked{opacity:0.22;filter:grayscale(1);cursor:default;}
 .ws span{font-size:16px;line-height:1;}
 .ws small{font-size:7px;margin-top:1px;}
 /* SWAP button — big, obvious, always visible */
-#swap-btn{width:54px;height:46px;background:linear-gradient(135deg,rgba(200,60,0,0.92),rgba(140,30,0,0.92));border:2px solid #FFD700;border-radius:8px;color:#FFD700;font-family:Georgia,serif;font-size:10px;font-weight:bold;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;box-shadow:0 0 12px rgba(255,180,0,0.45);-webkit-tap-highlight-color:transparent;touch-action:manipulation;flex-shrink:0;}
+#swap-btn{width:54px;height:46px;background:linear-gradient(135deg,rgba(200,60,0,0.92),rgba(140,30,0,0.92));border:2px solid #FFD700;border-radius:8px;color:#FFD700;font-family:Georgia,serif;font-size:10px;font-weight:bold;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;box-shadow:0 0 12px rgba(255,180,0,0.45);-webkit-tap-highlight-color:transparent;touch-action:manipulation;flex-shrink:0;z-index:300;pointer-events:all;position:relative;}
 #swap-btn:active{transform:scale(0.92);background:linear-gradient(135deg,rgba(240,80,0,0.98),rgba(180,40,0,0.98));}
 #swap-btn .si{font-size:20px;line-height:1;}
 #swap-btn .st{font-size:8px;letter-spacing:0.5px;}
 @media(max-width:520px){
-  #gc{width:100vw;height:calc(100vw*(640/480));border-left:none;border-right:none;}
-  .ws{height:50px;}#swap-btn{height:50px;width:58px;}
+  #swap-btn{height:50px;width:58px;}
+  .ws{height:50px;}
 }
 </style>
 </head>
@@ -212,7 +213,7 @@ let levelTransition=false,levelClearTimer=0,killCount=0,chatterTimer=0;
 let bgY=0,bgY2=-640;const BGS=0.7;
 
 // WEAPONS: 0=banana,1=coconut,2=pineapple,3=watermelon,4=laser,5=lightsaber
-let wLevels=[1,0,0,0,0,0],curW=0,wCollects=[0,0,0,0,0,0];
+let wLevels=[1,1,1,1,1,1],curW=0,wCollects=[0,0,0,0,0,0];
 const WNAMES=['Banana','Coconut','Pineapple','Watermelon','Laser','Lightsaber'];
 // dmg, fireRate(frames), spread, speed, proj, type
 const WB=[
@@ -571,8 +572,8 @@ function selW(idx){if(wLevels[idx]===0)return;if(idx!==curW)sfxWSwitch();curW=id
 function tSel(e,idx){e.preventDefault();selW(idx);}
 function cycleW(){let n=(curW+1)%6,t=0;while(wLevels[n]===0&&t<6){n=(n+1)%6;t++;}selW(n);}
 let swapTF=false;
-function swapT(e){e.preventDefault();swapTF=true;if(state==='playing')cycleW();setTimeout(()=>swapTF=false,400);}
-function swapC(){if(swapTF)return;if(state==='playing')cycleW();}
+function swapT(e){e.preventDefault();e.stopPropagation();swapTF=true;if(state==='playing')cycleW();setTimeout(()=>swapTF=false,400);}
+function swapC(e){if(e&&e.target){/* always fire on click */}if(state==='playing')cycleW();}
 
 function spawnEnemy(){
   const cfg=getLvCfg(level),type=cfg.enemyTypes[Math.floor(Math.random()*cfg.enemyTypes.length)],def=ED[type];
@@ -800,7 +801,7 @@ function startGame(){
   score=0;lives=3;level=1;killCount=0;frameCount=0;spawnTimer=0;bossActive=false;
   bossDefeated=new Array(20).fill(false);levelTransition=false;chatterTimer=0;saberBeam=null;
   player.x=216;player.y=520;player.hp=100;player.invincible=0;player.fireTimer=0;
-  wLevels=[1,0,0,0,0,0];wCollects=[0,0,0,0,0,0];curW=0;
+  wLevels=[1,1,1,1,1,1];wCollects=[0,0,0,0,0,0];curW=0;
   bullets=[];eBullets=[];enemies=[];particles=[];pickups=[];boss=null;
   document.getElementById('bbar-wrap').style.display='none';document.getElementById('hfill').style.width='100%';document.getElementById('level-val').textContent='1';
   updScore();updLives();updateWUI();startSavannaMusic();setTimeout(sfxChatter,600);showAnn('LEVEL 1 — SAFARI BEGINS!');
@@ -812,6 +813,26 @@ function mainMenu(){
   document.getElementById('overlay').innerHTML=`<h1>🐒 SUPER MONKEY<br>ADVENTURE! 🦁</h1><div class="sub">Super Monkey vs. The African Wild! — 20 Levels!</div><button class="btn" onclick="startGame()">▶ PLAY</button><div class="controls">MOVE: Arrow Keys / WASD &nbsp;|&nbsp; SWITCH: SPACE or tap ⟳ SWAP<br>📱 Mobile: drag to move · tap weapon slots · tap ⟳ SWAP<br>🍌🥥🍍🍉⚡🔴 Six weapons · Health packs · 20 levels!</div>`;
   document.getElementById('overlay').style.display='flex';
 }
+</script>
+<script>
+// Scale the game to fit any screen — iPhone, Android, desktop
+function scaleGame(){
+  const gc=document.getElementById('gc');
+  const GW=480,GH=640;
+  // Available space — account for iPhone safe areas
+  const aw=window.innerWidth;
+  const ah=window.innerHeight;
+  const scale=Math.min(aw/GW, ah/GH);
+  gc.style.transform='scale('+scale+')';
+  // Center it
+  gc.style.marginLeft=((aw-GW*scale)/2)+'px';
+  gc.style.marginTop=((ah-GH*scale)/2)+'px';
+  gc.style.marginRight='0';
+  gc.style.marginBottom='0';
+}
+scaleGame();
+window.addEventListener('resize',scaleGame);
+window.addEventListener('orientationchange',function(){setTimeout(scaleGame,200);});
 </script>
 </body>
 </html>
