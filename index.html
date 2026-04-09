@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>Super Monkey Adventure</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-html{width:100%;height:100%;overflow:hidden;background:#0a0500;}
-body{width:100%;height:100%;overflow:hidden;background:#0a0500;display:flex;align-items:center;justify-content:center;font-family:'Georgia',serif;}
-#gc-wrap{display:flex;align-items:center;justify-content:center;width:100%;height:100%;}
-#gc{position:relative;width:480px;height:640px;overflow:hidden;border:3px solid #8B6914;box-shadow:0 0 50px rgba(200,130,20,0.7);transform-origin:top left;flex-shrink:0;}
+html,body{width:100%;height:100%;background:#0a0500;overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:'Georgia',serif;}
+#gc-wrap{display:flex;align-items:center;justify-content:center;width:100vw;height:100vh;}
+#gc{position:relative;width:480px;height:640px;overflow:hidden;border:3px solid #8B6914;box-shadow:0 0 50px rgba(200,130,20,0.7);}
 canvas{display:block;}
 #ui{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;}
 #hud{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 12px;background:linear-gradient(to bottom,rgba(0,0,0,0.78),transparent);}
@@ -23,10 +22,10 @@ canvas{display:block;}
 #hlabel{color:#FFD700;font-size:10px;margin-bottom:2px;}
 #hbar{height:8px;background:#333;border-radius:4px;overflow:hidden;border:1px solid #555;}
 #hfill{height:100%;background:linear-gradient(to right,#22c55e,#86efac);border-radius:4px;transition:width 0.1s;}
-#bbar-wrap{position:absolute;bottom:10px;left:8px;right:8px;pointer-events:none;display:none;}
+#bbar-wrap{position:absolute;top:46px;left:8px;right:8px;pointer-events:none;display:none;}
 #blabel{color:#FF4444;font-size:10px;margin-bottom:2px;text-align:center;text-transform:uppercase;letter-spacing:2px;}
-#bbar{height:11px;background:#333;border-radius:5px;overflow:hidden;border:1px solid #FF4444;}
-#bfill{height:100%;background:linear-gradient(to right,#dc2626,#ef4444);border-radius:5px;transition:width 0.07s;}
+#bbar{height:13px;background:#333;border-radius:6px;overflow:hidden;border:1px solid #FF4444;}
+#bfill{height:100%;background:linear-gradient(to right,#dc2626,#ef4444);border-radius:6px;transition:width 0.07s;}
 #overlay{position:absolute;inset:0;background:rgba(0,0,0,0.9);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#FFD700;text-align:center;z-index:100;}
 #overlay h1{font-size:28px;text-shadow:2px 2px 0 #8B4513;margin-bottom:4px;line-height:1.2;}
 #overlay .sub{font-size:12px;color:#D4A843;margin-bottom:18px;}
@@ -71,11 +70,11 @@ canvas{display:block;}
     <div id="wbar-row">
       <div id="weapon-bar">
         <div class="ws active" id="ws0" ontouchstart="tSel(event,0)" onclick="selW(0)"><span>🍌</span><small id="wl0">LV1</small></div>
-        <div class="ws locked" id="ws1" ontouchstart="tSel(event,1)" onclick="selW(1)"><span>🥥</span><small id="wl1">LV-</small></div>
-        <div class="ws locked" id="ws2" ontouchstart="tSel(event,2)" onclick="selW(2)"><span>🍍</span><small id="wl2">LV-</small></div>
-        <div class="ws locked" id="ws3" ontouchstart="tSel(event,3)" onclick="selW(3)"><span>🍉</span><small id="wl3">LV-</small></div>
-        <div class="ws locked" id="ws4" ontouchstart="tSel(event,4)" onclick="selW(4)"><span>⚡</span><small id="wl4">LV-</small></div>
-        <div class="ws locked" id="ws5" ontouchstart="tSel(event,5)" onclick="selW(5)"><span>🔴</span><small id="wl5">LV-</small></div>
+        <div class="ws active" id="ws1" ontouchstart="tSel(event,1)" onclick="selW(1)"><span>🍉</span><small id="wl1">LV1</small></div>
+        <div class="ws active" id="ws2" ontouchstart="tSel(event,2)" onclick="selW(2)"><span><svg width="20" height="20" viewBox="-11 -11 22 22" style="display:inline-block;vertical-align:middle"><g fill="#111" stroke="#444" stroke-width="0.5"><polygon points="0,0 -2,-3 0,-11 2.5,-1.5" /><polygon points="0,0 3,-2 11,0 1.5,2.5" /><polygon points="0,0 2,3 0,11 -2.5,1.5" /><polygon points="0,0 -3,2 -11,0 -1.5,-2.5" /></g><circle cx="0" cy="0" r="2" fill="#222" stroke="#555" stroke-width="0.8"/></svg></span><small id="wl2">LV1</small></div>
+        <div class="ws active" id="ws3" ontouchstart="tSel(event,3)" onclick="selW(3)"><span>🔫</span><small id="wl3">LV1</small></div>
+        <div class="ws active" id="ws4" ontouchstart="tSel(event,4)" onclick="selW(4)"><span><svg width="18" height="20" viewBox="-6 -10 12 20" style="display:inline-block;vertical-align:middle"><polyline points="2,9 5,1 0,0 4,-9" fill="none" stroke="#FFEE00" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><polyline points="2,9 5,1 0,0 4,-9" fill="none" stroke="rgba(255,255,200,0.5)" stroke-width="1" stroke-linejoin="round"/></svg></span><small id="wl4">LV1</small></div>
+        <div class="ws active" id="ws5" ontouchstart="tSel(event,5)" onclick="selW(5)"><span><svg width="14" height="22" viewBox="-7 -11 14 22" style="display:inline-block;vertical-align:middle"><line x1="0" y1="10" x2="0" y2="-10" stroke="#FF2200" stroke-width="4" stroke-linecap="round" filter="url(#rg)"/><line x1="0" y1="10" x2="0" y2="-10" stroke="#FFAAAA" stroke-width="1.5" stroke-linecap="round"/><rect x="-4" y="9" width="8" height="3" rx="1" fill="#888"/></svg></span><small id="wl5">LV1</small></div>
       </div>
       <button id="swap-btn" ontouchstart="swapT(event)" onclick="swapC()">
         <span class="si">⟳</span><span class="st">SWAP</span>
@@ -98,7 +97,7 @@ canvas{display:block;}
       MOVE: Arrow Keys / WASD &nbsp;|&nbsp; SWITCH: SPACE or tap ⟳ SWAP<br>
       📱 Mobile: drag finger to move · tap weapon · tap ⟳ SWAP<br>
       Collect drops to unlock weapons &amp; restore health!<br>
-      🍌🥥🍍🍉⚡🔴 Six weapons · 20 levels · Dino bosses!
+      🍌🍉★🔫⚡🗡 Six weapons · 20 levels · Dino bosses!
     </div>
   </div>
   <div id="ann"></div>
@@ -149,11 +148,27 @@ function noise(dur,vol,when,dest,cf=800,Q=1.2){
 }
 function sfxThrow(wt){
   if(!audioReady)return;const t=AC.currentTime;
-  if(wt===4){const o=AC.createOscillator(),g=AC.createGain();o.type='sawtooth';o.frequency.setValueAtTime(1200,t);o.frequency.exponentialRampToValueAtTime(200,t+0.15);g.gain.setValueAtTime(0.35,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.15);o.connect(g);g.connect(sfGain);o.start(t);o.stop(t+0.16);}
+  if(wt===0){// banana — soft thwop
+    const o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.setValueAtTime(280,t);o.frequency.linearRampToValueAtTime(120,t+0.1);g.gain.setValueAtTime(0.3,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.12);o.connect(g);g.connect(sfGain);o.start(t);o.stop(t+0.13);
+  }
+  else if(wt===1){// watermelon — chunky thud
+    const o=AC.createOscillator(),g=AC.createGain();o.type='triangle';o.frequency.setValueAtTime(180,t);o.frequency.linearRampToValueAtTime(80,t+0.14);g.gain.setValueAtTime(0.45,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.15);o.connect(g);g.connect(sfGain);o.start(t);o.stop(t+0.16);
+    noise(0.06,0.25,t,sfGain,200);
+  }
+  else if(wt===2){// ninja star — sharp whirr
+    const o=AC.createOscillator(),g=AC.createGain();o.type='sawtooth';o.frequency.setValueAtTime(900,t);o.frequency.exponentialRampToValueAtTime(300,t+0.08);g.gain.setValueAtTime(0.3,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.09);o.connect(g);g.connect(sfGain);o.start(t);o.stop(t+0.1);
+  }
+  else if(wt===3){// double laser — two-tone zap
+    [0,0.04].forEach((d,i)=>{const o=AC.createOscillator(),g=AC.createGain();o.type='sawtooth';o.frequency.setValueAtTime(1400-i*200,t+d);o.frequency.exponentialRampToValueAtTime(300,t+d+0.1);g.gain.setValueAtTime(0.32,t+d);g.gain.exponentialRampToValueAtTime(0.001,t+d+0.12);o.connect(g);g.connect(sfGain);o.start(t+d);o.stop(t+d+0.13);});
+  }
+  else if(wt===4){// lightning crack
+    const o=AC.createOscillator(),g=AC.createGain();o.type='square';o.frequency.setValueAtTime(800,t);o.frequency.exponentialRampToValueAtTime(100,t+0.08);g.gain.setValueAtTime(0.4,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.09);o.connect(g);g.connect(sfGain);o.start(t);o.stop(t+0.1);
+    noise(0.06,0.35,t,sfGain,3000);
+  }
   else if(wt===5){// lightsaber hum
     const o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.setValueAtTime(220,t);o.frequency.linearRampToValueAtTime(180,t+0.2);g.gain.setValueAtTime(0.45,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.22);o.connect(g);g.connect(sfGain);o.start(t);o.stop(t+0.23);
-    const o2=AC.createOscillator(),g2=AC.createGain();o2.type='sawtooth';o2.frequency.value=440;g2.gain.setValueAtTime(0.2,t);g2.gain.exponentialRampToValueAtTime(0.001,t+0.12);o2.connect(g2);g2.connect(sfGain);o2.start(t);o2.stop(t+0.13);}
-  else{const o=AC.createOscillator(),g=AC.createGain();o.type='triangle';o.frequency.setValueAtTime(400+wt*60,t);o.frequency.linearRampToValueAtTime(150,t+0.12);g.gain.setValueAtTime(0.35,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.13);o.connect(g);g.connect(sfGain);o.start(t);o.stop(t+0.14);}
+    const o2=AC.createOscillator(),g2=AC.createGain();o2.type='sawtooth';o2.frequency.value=440;g2.gain.setValueAtTime(0.2,t);g2.gain.exponentialRampToValueAtTime(0.001,t+0.12);o2.connect(g2);g2.connect(sfGain);o2.start(t);o2.stop(t+0.13);
+  }
 }
 function sfxHit(big=false){if(!audioReady)return;const t=AC.currentTime;noise(big?0.18:0.08,big?0.75:0.5,t,sfGain,big?250:1100);tone(big?90:200,'square',big?0.2:0.08,big?0.5:0.3,t,sfGain);}
 function sfxDie(big=false){if(!audioReady)return;const t=AC.currentTime;if(big){[0,0.1,0.22,0.36].forEach((d,i)=>{noise(0.3,0.7,t+d,sfGain,150+i*80);tone(100-i*15,'sawtooth',0.28,0.55,t+d,sfGain);});[500,650,820,1050].forEach((f,i)=>tone(f,'sine',0.15,0.4,t+0.6+i*0.1,sfGain));}else{noise(0.12,0.55,t,sfGain,600);tone(280,'square',0.1,0.4,t,sfGain);tone(160,'sawtooth',0.14,0.35,t+0.06,sfGain);}}
@@ -215,22 +230,51 @@ let bossDefeated=new Array(20).fill(false);
 let levelTransition=false,levelClearTimer=0,killCount=0,chatterTimer=0;
 let bgY=0,bgY2=-640;const BGS=0.7;
 
-// WEAPONS: 0=banana,1=coconut,2=pineapple,3=watermelon,4=laser,5=lightsaber
+// WEAPONS: 0=banana(5-spread), 1=watermelon(4-spread), 2=ninjaStar(3-spread), 3=doubleLaser(2 beams), 4=lightning, 5=lightsaber
 let wLevels=[1,1,1,1,1,1],curW=0,wCollects=[0,0,0,0,0,0];
-const WNAMES=['Banana','Coconut','Pineapple','Watermelon','Laser','Lightsaber'];
+const WNAMES=['Banana','Watermelon','Ninja Star','Double Laser','Lightning','Lightsaber'];
 // dmg, fireRate(frames), spread, speed, proj, type
+// WEAPONS: 0=banana(5-spread), 1=watermelon(4-spread), 2=ninjaStar(3-spread), 3=doubleLaser(2 beams), 4=lightning, 5=lightsaber
+// Level scaling philosophy:
+//   - proj count is FIXED (never changes with level — spread weapons stay spread)
+//   - damage scales +15% per level (moderate, not game-breaking)
+//   - fireRate scales: faster per level but hard-capped so no weapon gets absurd
+//   - speed scales slightly per level
+// DPS at LV1 roughly equal across weapons (different tradeoffs: spread vs power vs speed)
 const WB=[
-  {dmg:1,  fr:12,spread:0.5, spd:11,proj:3,type:'banana'},
-  {dmg:2,  fr:16,spread:0.3, spd:9, proj:2,type:'coconut'},
-  {dmg:3,  fr:20,spread:0.2, spd:8, proj:2,type:'pineapple'},
-  {dmg:5,  fr:26,spread:0.08,spd:7, proj:1,type:'watermelon'},
-  {dmg:3,  fr:7, spread:0,   spd:16,proj:1,type:'laser'},     // NERFED: dmg 8->3
-  {dmg:6,  fr:22,spread:0,   spd:0, proj:1,type:'saber'},     // lightsaber - melee beam
+  // banana: 5-spread, fast, low dmg per shot — wide coverage weapon
+  {dmg:0.8, fr:14, spread:0.55, spd:10, proj:5, type:'banana'},
+  // watermelon: 4-spread, medium speed, medium dmg — chunky fruit wall
+  {dmg:2.2, fr:22, spread:0.38, spd:8,  proj:4, type:'watermelon'},
+  // ninja star: 3-spread, fast, medium dmg — precise & satisfying
+  {dmg:2.0, fr:16, spread:0.22, spd:12, proj:3, type:'ninjaStar'},
+  // double laser: 2 straight parallel beams, slow fire, high dmg — power weapon
+  {dmg:4.5, fr:30, spread:0,    spd:15, proj:2, type:'doubleLaser'},
+  // lightning: single fast bolt, medium dmg
+  {dmg:2.7, fr:9,  spread:0,    spd:16, proj:1, type:'lightning'},
+  // lightsaber: melee beam, highest dmg
+  {dmg:6.0, fr:22, spread:0,    spd:0,  proj:1, type:'saber'},
 ];
+
+// Per-weapon level-up caps so nothing gets absurd
+// [maxFireRateReduction%, dmgMultPerLevel, minFrames]
+const WB_SCALE=[
+  {dmgPerLv:0.14, frSpeedup:0.07, minFr:8},   // banana  — gets faster & stronger but stays rapid
+  {dmgPerLv:0.15, frSpeedup:0.07, minFr:13},  // watermelon
+  {dmgPerLv:0.15, frSpeedup:0.08, minFr:9},   // ninja star
+  {dmgPerLv:0.14, frSpeedup:0.06, minFr:18},  // double laser — stays slow, power weapon
+  {dmgPerLv:0.13, frSpeedup:0.09, minFr:5},   // lightning — fast but capped
+  {dmgPerLv:0.16, frSpeedup:0.06, minFr:14},  // lightsaber
+];
+
 function getWS(idx){
-  const b=WB[idx],lv=wLevels[idx];if(lv===0)return null;
-  const m=1+(lv-1)*0.18;
-  return{dmg:b.dmg*m,fr:Math.max(4,Math.round(b.fr/(1+(lv-1)*0.1))),spread:b.spread,spd:b.spd+(lv-1)*0.35,proj:b.proj+(lv>=4?1:0)+(lv>=8?1:0),type:b.type,lv};
+  const b=WB[idx],lv=wLevels[idx],sc=WB_SCALE[idx];
+  if(lv===0)return null;
+  const lvBonus=lv-1;
+  const dmg=b.dmg*(1+sc.dmgPerLv*lvBonus);
+  const fr=Math.max(sc.minFr, Math.round(b.fr/(1+sc.frSpeedup*lvBonus)));
+  const spd=b.spd+lvBonus*0.3;
+  return{dmg,fr,spread:b.spread,spd,proj:b.proj,type:b.type,lv};
 }
 
 let player={x:216,y:520,w:48,h:60,speed:4.5,hp:100,maxHp:100,fireTimer:0,invincible:0};
@@ -468,11 +512,58 @@ function drawMonkey(x,y,inv){
 // ── PROJECTILE DRAWING ────────────────────────────────
 function drawBullet(b){
   ctx.save();ctx.translate(b.x,b.y);
-  if(b.type==='banana'){ctx.rotate(b.ang||0);ctx.fillStyle='#FFD700';ctx.beginPath();ctx.arc(0,0,7,0.2,Math.PI-0.2);ctx.arc(0,-3,8,Math.PI-0.1,0.1,true);ctx.closePath();ctx.fill();ctx.strokeStyle='#B8860B';ctx.lineWidth=1;ctx.stroke();}
-  else if(b.type==='coconut'){ctx.fillStyle='#6B3A2A';ctx.beginPath();ctx.ellipse(0,0,8,8,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#3D1F15';ctx.beginPath();ctx.ellipse(0,0,4,4,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#8B5E3C';ctx.lineWidth=1;for(let i=0;i<3;i++){ctx.beginPath();ctx.arc(0,0,6,i*Math.PI*2/3,(i+0.3)*Math.PI*2/3);ctx.stroke();}}
-  else if(b.type==='pineapple'){ctx.fillStyle='#DAA520';ctx.beginPath();ctx.ellipse(0,0,7,10,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#8B6914';ctx.lineWidth=0.8;for(let r=-8;r<=8;r+=4){ctx.beginPath();ctx.moveTo(-7,r);ctx.lineTo(7,r);ctx.stroke();}ctx.fillStyle='#228B22';ctx.beginPath();ctx.moveTo(0,-10);ctx.lineTo(-5,-18);ctx.lineTo(0,-14);ctx.closePath();ctx.fill();ctx.beginPath();ctx.moveTo(0,-10);ctx.lineTo(5,-18);ctx.lineTo(0,-14);ctx.closePath();ctx.fill();}
-  else if(b.type==='watermelon'){ctx.fillStyle='#228B22';ctx.beginPath();ctx.ellipse(0,0,12,10,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#FF4444';ctx.beginPath();ctx.ellipse(0,1,9,7,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#000';[[-2,-1],[2,-1],[0,3],[-4,2],[4,2]].forEach(([sx,sy])=>{ctx.beginPath();ctx.ellipse(sx,sy,1.5,2,0,0,Math.PI*2);ctx.fill();});}
-  else if(b.type==='laser'){ctx.strokeStyle='#00FFFF';ctx.lineWidth=2;ctx.shadowColor='#00FFFF';ctx.shadowBlur=10;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,-24);ctx.stroke();ctx.strokeStyle='#FFFFFF';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,-24);ctx.stroke();ctx.shadowBlur=0;}
+  if(b.type==='banana'){
+    ctx.rotate(b.ang||0);
+    ctx.fillStyle='#FFD700';ctx.beginPath();ctx.arc(0,0,7,0.2,Math.PI-0.2);ctx.arc(0,-3,8,Math.PI-0.1,0.1,true);ctx.closePath();ctx.fill();
+    ctx.strokeStyle='#B8860B';ctx.lineWidth=1;ctx.stroke();
+  }
+  else if(b.type==='watermelon'){
+    ctx.fillStyle='#228B22';ctx.beginPath();ctx.ellipse(0,0,11,9,0,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#FF4444';ctx.beginPath();ctx.ellipse(0,1,8,6,0,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#000';[[-2,-1],[2,-1],[0,3],[-4,2],[4,2]].forEach(([sx,sy])=>{ctx.beginPath();ctx.ellipse(sx,sy,1.5,2,0,0,Math.PI*2);ctx.fill();});
+  }
+  else if(b.type==='ninjaStar'){
+    ctx.rotate((b.ang||0));
+    // 4-bladed shuriken — each blade is a swept asymmetric diamond
+    ctx.fillStyle='#111111';
+    ctx.strokeStyle='#3A3A3A';ctx.lineWidth=0.5;
+    for(let i=0;i<4;i++){
+      ctx.save();ctx.rotate(i*Math.PI/2);
+      ctx.beginPath();
+      // Swept blade: tip forward, swept back on trailing edge
+      ctx.moveTo(0,0);        // center
+      ctx.lineTo(-2.5,-3);    // inner left shoulder
+      ctx.lineTo(0,-11);      // blade tip
+      ctx.lineTo(2.5,-1.5);   // inner right shoulder (swept back)
+      ctx.closePath();
+      ctx.fill();ctx.stroke();
+      ctx.restore();
+    }
+    // Center hole
+    ctx.fillStyle='#2A2A2A';ctx.beginPath();ctx.arc(0,0,2.2,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='#555';ctx.lineWidth=0.8;ctx.beginPath();ctx.arc(0,0,2.2,0,Math.PI*2);ctx.stroke();
+    // Shine on one blade
+    ctx.fillStyle='rgba(255,255,255,0.18)';
+    ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(-1.5,-2);ctx.lineTo(0,-8);ctx.lineTo(0.5,-1);ctx.closePath();ctx.fill();
+  }
+  else if(b.type==='doubleLaser'){
+    // Two parallel red laser beams side by side
+    const ox=b.beamOffset||0; // set in fireBullet: -5 or +5
+    ctx.shadowColor='#FF0000';ctx.shadowBlur=10;
+    ctx.strokeStyle='#FF2200';ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.moveTo(ox,0);ctx.lineTo(ox,-28);ctx.stroke();
+    ctx.strokeStyle='#FFAAAA';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(ox,0);ctx.lineTo(ox,-28);ctx.stroke();
+    ctx.shadowBlur=0;
+  }
+  else if(b.type==='lightning'){
+    ctx.shadowColor='#FFEE00';ctx.shadowBlur=14;
+    ctx.strokeStyle='#FFEE00';ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.lineCap='round';
+    ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(4,-8);ctx.lineTo(-2,-14);ctx.lineTo(5,-22);ctx.lineTo(-1,-28);ctx.stroke();
+    ctx.strokeStyle='#FFFFFF';ctx.lineWidth=1;ctx.shadowBlur=6;
+    ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(4,-8);ctx.lineTo(-2,-14);ctx.lineTo(5,-22);ctx.lineTo(-1,-28);ctx.stroke();
+    ctx.shadowBlur=0;
+  }
   ctx.restore();
 }
 
@@ -527,9 +618,42 @@ function drawPickup(pk){
     ctx.strokeStyle='rgba(0,200,0,0.6)';ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,18,0,Math.PI*2);ctx.stroke();
     ctx.fillStyle='#DD0000';ctx.fillRect(-3,-8,6,16);ctx.fillRect(-8,-3,16,6);
     ctx.fillStyle='rgba(255,255,255,0.5)';ctx.font='8px Georgia';ctx.textAlign='center';ctx.fillText('+'+pk.hp,0,22);ctx.textAlign='left';
-  } else if(pk.wtype===4){ctx.fillStyle='#00FFFF';ctx.shadowColor='#00FFFF';ctx.shadowBlur=14;ctx.beginPath();ctx.ellipse(0,0,10,10,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#FFF';ctx.font='bold 10px Georgia';ctx.textAlign='center';ctx.fillText('⚡',0,4);ctx.shadowBlur=0;ctx.textAlign='left';}
-  else if(pk.wtype===5){ctx.fillStyle='#FF2200';ctx.shadowColor='#FF0000';ctx.shadowBlur=14;ctx.beginPath();ctx.ellipse(0,0,10,10,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#FFF';ctx.font='bold 10px Georgia';ctx.textAlign='center';ctx.fillText('🔴',0,4);ctx.shadowBlur=0;ctx.textAlign='left';}
-  else{ctx.font='22px serif';ctx.textAlign='center';ctx.fillText(['🍌','🥥','🍍','🍉'][pk.wtype],0,7);ctx.textAlign='left';}
+  } else if(pk.wtype===4){
+    // Lightning bolt pickup — drawn to match the weapon slot icon
+    ctx.fillStyle='#FFEE00';ctx.shadowColor='#FFEE00';ctx.shadowBlur=16;
+    ctx.beginPath();ctx.ellipse(0,0,12,12,0,0,Math.PI*2);ctx.fill();
+    ctx.shadowBlur=0;
+    // Draw jagged bolt matching the bullet
+    ctx.strokeStyle='#1A1400';ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.lineCap='round';
+    ctx.beginPath();ctx.moveTo(2,8);ctx.lineTo(5,1);ctx.lineTo(0,0);ctx.lineTo(4,-8);ctx.stroke();
+    ctx.strokeStyle='rgba(255,255,255,0.5)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(2,8);ctx.lineTo(5,1);ctx.lineTo(0,0);ctx.lineTo(4,-8);ctx.stroke();
+  }
+  else if(pk.wtype===5){
+    // Red lightsaber pickup — drawn beam
+    ctx.fillStyle='#CC0000';ctx.shadowColor='#FF0000';ctx.shadowBlur=16;
+    ctx.beginPath();ctx.ellipse(0,0,12,12,0,0,Math.PI*2);ctx.fill();
+    ctx.shadowBlur=0;
+    // Saber beam (vertical red line)
+    ctx.shadowColor='#FF0000';ctx.shadowBlur=10;
+    ctx.strokeStyle='#FF2200';ctx.lineWidth=4;ctx.lineCap='round';
+    ctx.beginPath();ctx.moveTo(0,9);ctx.lineTo(0,-9);ctx.stroke();
+    ctx.strokeStyle='#FFFFFF';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(0,9);ctx.lineTo(0,-9);ctx.stroke();
+    // Hilt
+    ctx.shadowBlur=0;
+    ctx.strokeStyle='#888';ctx.lineWidth=3;ctx.lineCap='square';
+    ctx.beginPath();ctx.moveTo(-3,9);ctx.lineTo(3,9);ctx.stroke();
+    ctx.shadowBlur=0;
+  }
+  else if(pk.kind==='weapon'&&pk.wtype===2){
+    // Draw mini shuriken pickup
+    ctx.fillStyle='#111';ctx.strokeStyle='#444';ctx.lineWidth=0.5;
+    const pts=[[0,0,-2,-3,0,-10,2.5,-1.5],[0,0,3,-2,10,0,1.5,2.5],[0,0,2,3,0,10,-2.5,1.5],[0,0,-3,2,-10,0,-1.5,-2.5]];
+    pts.forEach(p=>{ctx.beginPath();ctx.moveTo(p[0],p[1]);ctx.lineTo(p[2],p[3]);ctx.lineTo(p[4],p[5]);ctx.lineTo(p[6],p[7]);ctx.closePath();ctx.fill();ctx.stroke();});
+    ctx.fillStyle='#222';ctx.beginPath();ctx.arc(0,0,2,0,Math.PI*2);ctx.fill();
+  }
+  else{ctx.font='22px serif';ctx.textAlign='center';ctx.fillText(['🍌','🍉','','🔫'][pk.wtype]||'🎁',0,7);ctx.textAlign='left';}
   ctx.restore();
 }
 
@@ -539,29 +663,41 @@ function drawPickup(pk){
 function fireBullet(){
   const ws=getWS(curW);if(!ws)return;
   const cx=player.x+player.w/2,cy=player.y+6;
+
   if(ws.type==='saber'){
-    // Lightsaber: instant beam at player position
     const lv=wLevels[5];
     const len=80+lv*20;
     const dmg=ws.dmg;
-    // Check all enemies in the saber's column
     saberBeam={x:cx,y:cy,len,life:8,maxLife:8,dmg,lv};
-    // Deal damage to anything in beam path (15px wide)
     for(let ei=enemies.length-1;ei>=0;ei--){
       const e=enemies[ei];
-      const ex=e.x+e.w/2;
-      if(Math.abs(ex-cx)<15+lv*2&&e.y+e.h>cy-len&&e.y<cy){
+      if(Math.abs((e.x+e.w/2)-cx)<15+lv*2&&e.y+e.h>cy-len&&e.y<cy){
         e.hp-=dmg;sfxHit();
-        if(e.hp<=0){addExpl(e.x+e.w/2,e.y+e.h/2,'#FF3300',12,6);sfxDie();score+=ED[e.type]?.sc||100;killCount++;if(Math.random()<0.30)dropPU(e.x+e.w/2,e.y+e.h/2);enemies.splice(ei,1);updScore();}
+        if(e.hp<=0){addExpl(e.x+e.w/2,e.y+e.h/2,'#FF3300',12,6);sfxDie();score+=ED[e.type]?.sc||100;killCount++;dropPU(e.x+e.w/2,e.y+e.h/2);enemies.splice(ei,1);updScore();}
       }
     }
-    // Also hit boss
     if(boss){const bx=boss.x+boss.w/2;if(Math.abs(bx-cx)<boss.w/2+10&&boss.y+boss.h>cy-len&&boss.y<cy){boss.hp-=dmg;sfxHit(true);addExpl(cx,boss.y+boss.h/2,'#FF3300',4,4);updBossBar();if(boss.hp<=0)killBoss();}}
+    if(frameCount%3===0)sfxThrow(curW);
     return;
   }
+
+  if(ws.type==='doubleLaser'){
+    // Two fixed parallel beams — left beam and right beam
+    [-6,6].forEach(offset=>{
+      bullets.push({x:cx+offset,y:cy,vx:0,vy:-ws.spd,type:'doubleLaser',dmg:ws.dmg,ang:0,wtype:curW,beamOffset:0});
+    });
+    if(frameCount%3===0)sfxThrow(curW);
+    return;
+  }
+
+  // All spread weapons — evenly distribute across spread angle
   const n=ws.proj;
-  for(let i=0;i<n;i++){const off=(n>1)?(i/(n-1)-0.5)*ws.spread*2:0;bullets.push({x:cx,y:cy,vx:Math.sin(off)*ws.spd,vy:-Math.cos(off)*ws.spd,type:ws.type,dmg:ws.dmg,ang:0,wtype:curW});}
-  if(frameCount%4===0)sfxThrow(curW);
+  for(let i=0;i<n;i++){
+    const off=(n>1)?(i/(n-1)-0.5)*ws.spread*2:0;
+    const ang=frameCount*0.25; // spin angle for ninja stars
+    bullets.push({x:cx,y:cy,vx:Math.sin(off)*ws.spd,vy:-Math.cos(off)*ws.spd,type:ws.type,dmg:ws.dmg,ang,wtype:curW});
+  }
+  if(frameCount%3===0)sfxThrow(curW);
 }
 
 function killBoss(){
@@ -660,20 +796,23 @@ function checkColl(){
 }
 
 function dropPU(x,y){
-  // Always try to drop something
+  // 75% chance to drop anything at all
+  if(Math.random()>0.75) return;
   const r=Math.random();
-  if(r<0.09){
-    // Health pack — restore 10-20 hp
+  if(r<0.12){
+    // Health pack
     const hp=10+Math.floor(Math.random()*11);
     pickups.push({x,y,vy:1.4,kind:'health',hp});
-  } else if(r<0.45){
-    pickups.push({x,y,vy:1.4,kind:'weapon',wtype:0});
   } else {
+    // Weapon drop — equal 16% chance for each of the 6 weapons
+    const roll=Math.random();
     let wt;
-    const r2=Math.random();
-    if(r2<0.3)wt=Math.min(5,curW+1);
-    else if(r2<0.55)wt=Math.floor(Math.random()*6);
-    else wt=Math.min(5,level>6?5:Math.floor(level/3));
+    if(roll<0.166)      wt=0; // banana
+    else if(roll<0.333) wt=1; // coconut
+    else if(roll<0.500) wt=2; // pineapple
+    else if(roll<0.666) wt=3; // watermelon
+    else if(roll<0.833) wt=4; // lightning
+    else                wt=5; // lightsaber
     pickups.push({x,y,vy:1.4,kind:'weapon',wtype:wt});
   }
 }
@@ -740,7 +879,7 @@ function update(){
     if(killCount>=cfg.killsNeeded&&!bossDefeated[level-1]){enemies=[];spawnBoss();}
   }
 
-  for(let i=bullets.length-1;i>=0;i--){const b=bullets[i];b.x+=b.vx;b.y+=b.vy;if(b.type==='banana')b.ang+=0.18;if(b.y<-40||b.x<-40||b.x>W+40||b.y>H+20)bullets.splice(i,1);}
+  for(let i=bullets.length-1;i>=0;i--){const b=bullets[i];b.x+=b.vx;b.y+=b.vy;if(b.type==='banana')b.ang+=0.18;if(b.type==='ninjaStar')b.ang+=0.28;if(b.y<-40||b.x<-40||b.x>W+40||b.y>H+20)bullets.splice(i,1);}
 
   for(let i=enemies.length-1;i>=0;i--){
     const e=enemies[i];e.animFrame++;e.pt++;
@@ -790,13 +929,13 @@ document.addEventListener('keyup',e=>{keys[e.key]=false;});
 let ts={x:0,y:0};
 cv.addEventListener('touchstart',e=>{ts={x:e.touches[0].clientX,y:e.touches[0].clientY};e.preventDefault();},{passive:false});
 cv.addEventListener('touchmove',e=>{
-  const GW=480,GH=640;
-  const scale=Math.min(window.innerWidth/GW,window.innerHeight/GH);
-  const ddx=(e.touches[0].clientX-ts.x)/scale;
-  const ddy=(e.touches[0].clientY-ts.y)/scale;
-  player.x=Math.max(0,Math.min(W-player.w,player.x+ddx*0.85));
-  player.y=Math.max(0,Math.min(H-player.h,player.y+ddy*0.85));
-  ts={x:e.touches[0].clientX,y:e.touches[0].clientY};e.preventDefault();
+  var scale=Math.min(window.innerWidth/480,window.innerHeight/640);
+  var ddx=(e.touches[0].clientX-ts.x)/scale;
+  var ddy=(e.touches[0].clientY-ts.y)/scale;
+  player.x=Math.max(0,Math.min(W-player.w,player.x+ddx));
+  player.y=Math.max(0,Math.min(H-player.h,player.y+ddy));
+  ts={x:e.touches[0].clientX,y:e.touches[0].clientY};
+  e.preventDefault();
 },{passive:false});
 
 // ═══════════════════════════════════════════════════════
@@ -816,30 +955,20 @@ function startGame(){
 function restartGame(){stopMusic();startGame();}
 function mainMenu(){
   state='menu';stopMusic();
-  document.getElementById('overlay').innerHTML=`<h1>🐒 SUPER MONKEY<br>ADVENTURE! 🦁</h1><div class="sub">Super Monkey vs. The African Wild! — 20 Levels!</div><button class="btn" onclick="startGame()">▶ PLAY</button><div class="controls">MOVE: Arrow Keys / WASD &nbsp;|&nbsp; SWITCH: SPACE or tap ⟳ SWAP<br>📱 Mobile: drag to move · tap weapon slots · tap ⟳ SWAP<br>🍌🥥🍍🍉⚡🔴 Six weapons · Health packs · 20 levels!</div>`;
+  document.getElementById('overlay').innerHTML=`<h1>🐒 SUPER MONKEY<br>ADVENTURE! 🦁</h1><div class="sub">Super Monkey vs. The African Wild! — 20 Levels!</div><button class="btn" onclick="startGame()">▶ PLAY</button><div class="controls">MOVE: Arrow Keys / WASD &nbsp;|&nbsp; SWITCH: SPACE or tap ⟳ SWAP<br>📱 Mobile: drag to move · tap weapon slots · tap ⟳ SWAP<br>🍌🍉★🔫⚡🗡 Six weapons · Health packs · 20 levels!</div>`;
   document.getElementById('overlay').style.display='flex';
 }
 </script>
 <script>
 function scaleGame(){
-  const gc=document.getElementById('gc');
-  const GW=480, GH=640;
-  const vw=window.innerWidth;
-  const vh=window.innerHeight;
-  const scale=Math.min(vw/GW, vh/GH);
-  const scaledW=GW*scale;
-  const scaledH=GH*scale;
-  const tx=(vw-scaledW)/2;
-  const ty=(vh-scaledH)/2;
-  // transform-origin is top left, so we translate manually
-  gc.style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')';
-  gc.style.transformOrigin='0 0';
+  var gc=document.getElementById('gc');
+  var scale=Math.min(window.innerWidth/480, window.innerHeight/640);
+  gc.style.transform='scale('+scale+')';
+  gc.style.transformOrigin='center center';
 }
 scaleGame();
-window.addEventListener('resize', scaleGame);
-window.addEventListener('orientationchange', function(){ setTimeout(scaleGame, 300); });
-// Also run after fonts/layout settle
-window.addEventListener('load', scaleGame);
+window.addEventListener('resize',scaleGame);
+window.addEventListener('orientationchange',function(){setTimeout(scaleGame,250);});
 </script>
 </body>
 </html>
